@@ -1,0 +1,33 @@
+#!/bin/bash
+
+s=$1
+trc=$2
+
+echo -n "" > $trc
+
+while true
+
+do
+	ifdown enp6s0f1
+	ifdown enp131s0f1
+
+        echo delayed
+
+	for ((i=1; i< $s; i++))
+	do
+	    sleep 1
+
+	    d1=`date +"%d/%m %H:%M:%S.0"`
+	    str="$d1 0x1234567:label_tc_delay:1: id_down_is_on"
+	    echo $str >> $trc
+	done
+
+	#sleep $(( ( RANDOM % 30 )  + 1 ))
+
+	ifup enp6s0f1
+	ifup enp131s0f1
+
+	echo Not delayed
+	sleep 10
+done
+
