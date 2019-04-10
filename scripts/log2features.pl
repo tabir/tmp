@@ -96,7 +96,6 @@ foreach my $line (<$IN>) {
 	    if ($m == 1) {
 		my $n = $d - 1;
 		$date = "$base$n";
-		print "$date $base   $d  $m $n\n";
 	    }
 	}
     
