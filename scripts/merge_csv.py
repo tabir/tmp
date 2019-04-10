@@ -50,7 +50,7 @@ for filename in inputs:
             
             dates[date] = line
 for date in sorted(dates):
-    if dates_occ[date] == len(inputs):
+    if dates_occ[date] <= len(inputs):
         line = dates[date]
         writer.writerow(line)
 
