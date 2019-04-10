@@ -59,9 +59,11 @@ for filename in inputs:
             if date in dates:
                 prev_data = dates[date]
                 for key in prev_data:
+                    
+                    #print "DBG1: key:", key, " date:", date
                     if key != 'date':
                         if key in line:
-                            line[key] = get_val(line[key]) + get_val(prev_data[key])
+                            1 # line[key] = get_val(line[key]) + get_val(prev_data[key])
                         else:
                             line[key] = prev_data[key]
             
