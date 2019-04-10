@@ -1,6 +1,9 @@
 """
 
     usage: merge_csv.py {2+ csv-files} > out.csv
+    Note:
+        1. Will skip lines with dates that are not common to all inputs
+        2. will sum up data in common columns
 
 """
 
@@ -22,6 +25,7 @@ for filename in inputs:
         fieldnames.append(h)
 
 dates = {}
+dates_occ = {}
 
 def get_val(s):
     """
@@ -46,6 +50,11 @@ for filename in inputs:
             
             date = line['date']
             
+            if date in dates_occ:
+                dates_occ[date] += 1
+            else:
+                dates_occ[date] = 1
+            
             # merge the data into "line"
             if date in dates:
                 prev_data = dates[date]
@@ -58,6 +67,7 @@ for filename in inputs:
             
             dates[date] = line
 for date in sorted(dates):
-    line = dates[date]
-    writer.writerow(line)
+    if dates_occ[date] == len(inputs):
+        line = dates[date]
+        writer.writerow(line)
 
