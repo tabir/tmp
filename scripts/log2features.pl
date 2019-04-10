@@ -9,6 +9,7 @@
 #      --filter_in <filter-in-reg-exp> --filter_out <filter-out-exp>
 #      --feature_table_in <input-feaure-list>
 #      --feature_table_out <output-feaure-list> 
+#      --even 
 #
 #################################################################################
 
@@ -25,6 +26,7 @@ my $feature_table_out = "";
 my $feature_table_in = "";
 
 my $help;
+my $even;
 
 GetOptions (
     "log=s"                => \$log,     
@@ -34,6 +36,7 @@ GetOptions (
     "filter_out=s"         => \$filter_out, 
     "feature_table_in=s"   => \$feature_table_in,
     "feature_table_out=s"  => \$feature_table_out,
+    "even"                 => \$even, 
     "help"                 => \$help)   
   or die("Error in command line arguments\n");
 
@@ -83,6 +86,20 @@ foreach my $line (<$IN>) {
 	
 	my $date = $1;
 	my $feature = $2;
+
+	# convert data to 2-sec (even) mode
+	if ($even) {
+	    $date =~ /(\d\d\/\d\d \d\d:\d\d:\d)(\d)$/;
+	    my $base = $1;
+	    my $d = $2;
+	    my $m = $d % 2;
+	    if ($m == 1) {
+		my $n = $d - 1;
+		$date = "$base$n";
+		print "$date $base   $d  $m $n\n";
+	    }
+	}
+    
 
 	if ($filter_out && ($feature =~ /$filter_out/i)) {
 	    next;
@@ -135,7 +152,7 @@ print "\n";
 #--- data
 
 foreach my $d (sort keys %dates) {
-    
+
     print "$d,";
 
     foreach my $f (keys %features) {
