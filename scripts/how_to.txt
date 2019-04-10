@@ -1,0 +1,34 @@
+
+
+# all use 10 sec quet in between
+
+# on 31
+
+# Cause net delay of 1 sec for 3 sec each time
+
+./net_delay.sh 1000ms 3 /tmp/hackathon/avi/events.log
+
+
+# Stress the system with IO to first G for 4 sec 
+
+./vdb_hack.sh 4 events.log 
+
+
+# on 42
+
+# both SDS nics are down for 2 sec
+
+./nic_down.sh 2 /tmp/hackathon/avi/events.nic.log
+
+
+# generate CSV from trace
+
+# 1. concatinate events.log with trace
+
+cat /opt/emc/scaleio/sds/logs/trc.0 events.log events.nic.log > sds.trc_and_events.log
+
+
+
+./log2features.pl --log sds.trc_and_events.log --start '10/04 17:30' --even > results.17.30.csv
+
+

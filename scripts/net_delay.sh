@@ -18,7 +18,7 @@ do
 	    sleep 1
 
 	    d1=`date +"%d/%m %H:%M:%S.0"`
-	    str="$d1 0x1234567:label_tc_delay:1: delay_is_on for $d"
+	    str="$d1 0x1234567:_label_tc_delay:1: delay_is_on for $d"
 	    echo $str >> $trc
 	done
 

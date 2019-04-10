@@ -7,26 +7,22 @@ trc=$2
 while true
 
 do
-	ifdown enp4s0f1
-	ifdown enp4s0f0
 
         echo delayed
+
+	# run in background
+	/opt/vdbench/vdbench -f vdb_hack.$s &
 
 	for ((i=0; i< $s; i++))
 	do
 	    sleep 1
-
 	    d1=`date +"%d/%m %H:%M:%S.0"`
-	    str="$d1 0x1234567:_label_nic_down:1: id_down_is_on"
+	    str="$d1 0x1234567:_label_vdb_hack:1: is_on for $s sec"
 	    echo $str >> $trc
 	done
 
-	#sleep $(( ( RANDOM % 30 )  + 1 ))
-
-	ifup enp4s0f1
-	ifup enp4s0f0
-
 	echo Not delayed
 	sleep 10
+
 done
 

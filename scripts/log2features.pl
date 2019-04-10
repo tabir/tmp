@@ -143,7 +143,7 @@ if ($feature_table_out) {
 #--- header
 
 print "date,";
-foreach my $f (keys %features) {
+foreach my $f (sort keys %features) {
     print "$f,"
 }
 print "\n";
@@ -154,7 +154,7 @@ foreach my $d (sort keys %dates) {
 
     print "$d,";
 
-    foreach my $f (keys %features) {
+    foreach my $f (sort keys %features) {
 
 	my $val = $tbl{$d,$f};
 	if (! $val) {
