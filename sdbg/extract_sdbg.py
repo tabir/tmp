@@ -23,7 +23,12 @@ for file_name in sorted(os.listdir(dir)):
                     value = line.split(" ",2)[1]
                     dict[key] = int(value) - prev_dict[key]
                     prev_dict[key] = int(value)
-
+            if re.search("Ip addr", line):
+                latency_key = "Latency_" + line.split(":",2)[1].split(" ",2)[0]
+            if re.search("Latency:.*Min",line):
+                value = line.split(":",3)[3].split(" ",2)[0]
+                dict[latency_key] = value
+    
     bExist=os.path.isfile('./sdbg.csv')
     with open('sdbg.csv','a') as out_file:
         if not bExist:
