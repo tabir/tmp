@@ -25,16 +25,20 @@ for filename in inputs:
 
 dates = {}
 dates_occ = {}
+dates2 = {}
 
 # read and output the merge data
 writer = csv.DictWriter(sys.stdout, fieldnames=fieldnames)
 writer.writeheader()
+index = 0
 for filename in inputs:
+    index += 1
     with open(filename, "r") as f_in:
         reader = csv.DictReader(f_in)  # Uses the field names in this file
         for line in reader:
             
             date = line['date']
+            dates2[date] = index
             
             if date in dates_occ:
                 dates_occ[date] += 1
@@ -50,7 +54,7 @@ for filename in inputs:
             
             dates[date] = line
 for date in sorted(dates):
-    if dates_occ[date] <= len(inputs):
+    if dates2[date] == 2: # found in second file
         line = dates[date]
         writer.writerow(line)
 
