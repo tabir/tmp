@@ -1,0 +1,4 @@
+connect tgt
+dumpscreen 28
+disconnect
+exit
