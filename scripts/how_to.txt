@@ -32,3 +32,19 @@ cat /opt/emc/scaleio/sds/logs/trc.0 events.log events.nic.log > sds.trc_and_even
 ./log2features.pl --log sds.trc_and_events.log --start '10/04 17:30' --even > results.17.30.csv
 
 
+
+
+sar
+
+good: both: good.sar.mar_10__18_18-19_45.csv
+18:18 ---> 19:45
+
+
+sar bad1: 16:52 -> 17:35
+missing: 17:35 -> 18:15
+
+events: bad in Day1 are:
+16:55 --> 18:15
+
+
+
